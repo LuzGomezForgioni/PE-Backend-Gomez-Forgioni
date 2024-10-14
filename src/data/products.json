@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "title": "Remera",
+    "description": "Remera de algodón 100%",
+    "code": "REM-001",
+    "price": 10000,
+    "status": true,
+    "stock": 30,
+    "category": "Ropa",
+    "thumbnails": []
+  },
+  {
+    "id": 2,
+    "title": "Pantalón",
+    "description": "Pantalón de jean",
+    "code": "PAN-002",
+    "price": 25000,
+    "status": true,
+    "stock": 20,
+    "category": "Ropa",
+    "thumbnails": []
+  },
+  {
+    "id": 3,
+    "title": "Zapatillas",
+    "description": "Zapatillas deportivas",
+    "code": "ZAP-003",
+    "price": 125000,
+    "status": true,
+    "stock": 25,
+    "category": "Calzado",
+    "thumbnails": []
+  },
+  {
+    "id": 4,
+    "title": "Reloj",
+    "description": "Reloj elegante",
+    "code": "REL-004",
+    "price": 80000,
+    "status": true,
+    "stock": 13,
+    "category": "Accesorios",
+    "thumbnails": []
+  },
+  {
+    "id": 5,
+    "title": "Mochila",
+    "description": "Mochila sport",
+    "code": "MOC-005",
+    "price": 45000,
+    "status": true,
+    "stock": 40,
+    "category": "Accesorios",
+    "thumbnails": []
+  },
+  {
+    "id": 6,
+    "title": "Lentes de sol",
+    "description": "Lentes de sol UV400",
+    "code": "LEN-006",
+    "price": 45000,
+    "status": true,
+    "stock": 60,
+    "category": "Accesorios",
+    "thumbnails": []
+  },
+  {
+    "id": 7,
+    "status": true,
+    "title": "Campera",
+    "description": "Campera de cuero",
+    "code": "CAM-007",
+    "price": 92000,
+    "stock": 44,
+    "category": "Ropa",
+    "thumbnails": []
+  }
+]
