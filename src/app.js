@@ -50,6 +50,17 @@ io.on('connection', (socket) => {
             console.error('Error al agregar producto:', error);
         }
     });
+
+    // Manejar el evento para eliminar un producto
+    socket.on('deleteProduct', async (productId) => {
+        try {
+            await productManager.deleteProduct(productId); // Eliminar el producto
+            const updatedProducts = await productManager.getProducts(); // Obtener la lista actualizada
+            io.emit('productList', updatedProducts); // Emitir la lista actualizada a todos los clientes
+        } catch (error) {
+            console.error('Error al eliminar producto:', error);
+        }
+    });
 });
 
 // Iniciar el servidor

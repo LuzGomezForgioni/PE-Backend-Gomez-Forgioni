@@ -7,6 +7,10 @@
 </head>
 <body>
     <h1>Lista de Productos</h1>
+    
+    <!-- Enlace al Home -->
+    <a href="/">Volver al Home</a> <!-- Cambia "/" si tu ruta de inicio es diferente -->
+    
     <ul id="productList"></ul>
 
     <form id="productForm">
@@ -28,8 +32,18 @@
 
             products.forEach(product => {
                 const li = document.createElement('li');
-                li.textContent = `${product.title} - $${product.price}`;
-                productList.appendChild(li);
+                li.textContent = `ID: ${product.id} - ${product.title} - $${product.price}`;
+                
+                // Crear botón de eliminar
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.onclick = () => {
+                    // Emitir evento para eliminar producto
+                    socket.emit('deleteProduct', product.id);
+                };
+
+                li.appendChild(deleteButton); // Agregar botón al elemento de lista
+                productList.appendChild(li); // Agregar elemento a la lista
             });
         });
 

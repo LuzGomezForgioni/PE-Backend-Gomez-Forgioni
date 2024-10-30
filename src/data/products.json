@@ -82,25 +82,7 @@
 		"title": "Gorra",
 		"description": "Ropa",
 		"code": "GOR-008",
-		"price": 15000,
-		"stock": 20
-	},
-	{
-		"id": 9,
-		"status": true,
-		"title": "Gorra",
-		"description": "Ropa",
-		"code": "GOR-008",
-		"price": 15000,
-		"stock": 20
-	},
-	{
-		"id": 10,
-		"status": true,
-		"title": "Pulsera",
-		"description": "Accesorio",
-		"code": "12121",
-		"price": 2000,
+		"price": 200,
 		"stock": 20
 	}
 ]
