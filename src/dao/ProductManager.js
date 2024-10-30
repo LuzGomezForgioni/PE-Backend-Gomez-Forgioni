@@ -2,8 +2,9 @@ import fs from 'fs/promises';
 import path from 'path';
 
 class ProductManager {
-    constructor() {
+    constructor(io) {
         this.filePath = path.resolve('src/data/products.json');
+        this.io = io; // Guardar la referencia de Socket.IO
     }
 
     async getProducts(limit) {
@@ -45,14 +46,14 @@ class ProductManager {
         if (typeof product.stock !== 'number' || product.stock < 0) {
             throw new Error('El stock debe ser un número no negativo');
         }
-        if (typeof product.status !== 'boolean') {
-            throw new Error('El estado debe ser un valor booleano');
-        }
 
         const id = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
         const newProduct = { id, status: true, ...product };
         products.push(newProduct);
         await fs.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
+
+        // Emitir la lista actualizada de productos
+        this.io.emit('productList', products); // Emitir la lista de productos
         return newProduct;
     }
 
@@ -79,13 +80,13 @@ class ProductManager {
         if (updates.stock !== undefined && (typeof updates.stock !== 'number' || updates.stock < 0)) {
             throw new Error('El stock debe ser un número no negativo');
         }
-        if (updates.status !== undefined && typeof updates.status !== 'boolean') {
-            throw new Error('El estado debe ser un valor booleano');
-        }
 
         // Actualizar el producto, manteniendo el ID original
         products[productIndex] = { ...products[productIndex], ...updates, id: products[productIndex].id };
         await fs.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
+
+        // Emitir la lista actualizada de productos
+        this.io.emit('productList', products); // Emitir la lista de productos actualizada
         return products[productIndex];
     }
 
@@ -100,6 +101,9 @@ class ProductManager {
         // Eliminar el producto si existe
         products.splice(productIndex, 1);
         await fs.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
+
+        // Emitir la lista actualizada de productos
+        this.io.emit('productList', products); // Emitir la lista de productos actualizada
     }
 }
 

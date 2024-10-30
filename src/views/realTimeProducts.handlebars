@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos en Tiempo Real</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    <ul id="productList"></ul>
+
+    <form id="productForm">
+        <input type="text" name="title" placeholder="Título" required>
+        <input type="text" name="description" placeholder="Descripción" required>
+        <input type="text" name="code" placeholder="Código" required>
+        <input type="number" name="price" placeholder="Precio" required>
+        <input type="number" name="stock" placeholder="Stock" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+    <script>
+        const socket = io();
+
+        // Escuchar la emisión de la lista de productos
+        socket.on('productList', (products) => {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = ''; // Limpiar la lista existente
+
+            products.forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = `${product.title} - $${product.price}`;
+                productList.appendChild(li);
+            });
+        });
+
+        // Manejar el envío del formulario para agregar productos
+        document.getElementById('productForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const product = Object.fromEntries(formData);
+            
+            // Convertir precio y stock a números
+            product.price = Number(product.price);
+            product.stock = Number(product.stock);
+
+            // Validar que el precio sea un número positivo
+            if (isNaN(product.price) || product.price <= 0) {
+                alert("El precio debe ser un número positivo");
+                return; // Salir si la validación falla
+            }
+
+            // Emitir el evento para agregar producto
+            socket.emit('addProduct', product); 
+
+            // Limpiar el formulario
+            event.target.reset();
+        });
+    </script>
+</body>
+</html>
